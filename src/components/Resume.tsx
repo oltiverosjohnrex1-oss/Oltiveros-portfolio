@@ -47,6 +47,7 @@ const PROJECTS = [
       'Real-time cloud sync via Google Apps Script & Sheets',
     ],
     tech: ['App Inventor', 'Apps Script', 'Google Sheets'],
+    github: null,
   },
   {
     title: 'BCC OJT Management System',
@@ -60,6 +61,7 @@ const PROJECTS = [
       'Batch export to Excel/PDF for official records',
     ],
     tech: ['PHP', 'Laravel', 'MySQL', 'Bootstrap'],
+    github: null,
   },
   {
     title: 'BCC Alumni Tracer System',
@@ -73,6 +75,21 @@ const PROJECTS = [
       'Real-time dashboard for admin analytics',
     ],
     tech: ['React Native', 'Firebase', 'Expo', 'Firestore'],
+    github: null,
+  },
+  {
+    title: 'Personal Portfolio Website',
+    year: '2025 — 2026',
+    org: 'Personal Project · Open Source',
+    desc: 'This portfolio — a production-grade React + TypeScript + Vite site with 3D tilt cards, particle fields, animated counters, and smooth scroll reveals. Deployed via GitHub Actions to GitHub Pages.',
+    features: [
+      '3D tilt cards with glare effect and mouse-tracked parallax using Framer Motion',
+      'Canvas-based particle field background with dynamic linking',
+      'Animated stat counters triggered on scroll via IntersectionObserver',
+      'CI/CD pipeline with GitHub Actions for automated GitHub Pages deployment',
+    ],
+    tech: ['React', 'TypeScript', 'Vite', 'Tailwind', 'Framer Motion'],
+    github: 'https://github.com/oltiverosjohnrex1-oss/Oltiveros-portfolio',
   },
 ]
 
@@ -118,6 +135,53 @@ function Reveal({ children, delay = 0, className = '' }: { children: React.React
     >
       {children}
     </motion.div>
+  )
+}
+
+/* ─── Skill Accordion ───────────────────────────────────────── */
+function SkillAccordion({ cat, items, delay }: { cat: string; items: { name: string; icon: string }[]; delay: number }) {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <Reveal delay={delay}>
+      <div className={`skill-accordion ${open ? 'skill-accordion--active' : ''}`}>
+        {/* Header */}
+        <button className="skill-accordion-header" onClick={() => setOpen((v) => !v)}>
+          <div className="skill-accordion-bar" />
+          <h4>{cat}</h4>
+          <span className={`skill-accordion-icon ${open ? 'skill-accordion-icon--open' : ''}`}>+</span>
+        </button>
+
+        {/* Body */}
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              className="skill-accordion-body"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div className="skill-items skill-accordion-items">
+                {items.map((s) => (
+                  <div key={s.name} className="skill-tag">
+                    <img
+                      src={s.icon}
+                      alt={s.name}
+                      width={16}
+                      height={16}
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                    />
+                    {s.name}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </Reveal>
   )
 }
 
@@ -437,230 +501,4 @@ export function Resume() {
                   <p>Associate in Computer Technology</p>
                   <div className="about-card-divider" />
                   <div className="about-card-details">
-                    <div>
-                      <span>School</span>
-                      <strong>Baao Community College</strong>
-                    </div>
-                    <div>
-                      <span>Major</span>
-                      <strong>Application Development</strong>
-                    </div>
-                    <div>
-                      <span>Status</span>
-                      <strong>Open to Work</strong>
-                    </div>
-                  </div>
-                </div>
-              </TiltCard>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Skills ── */}
-      <section id="skills" className="resume-section">
-        <span className="section-big-num">02</span>
-        <div className="resume-container">
-          <Reveal>
-            <span className="section-label">02 // Skills</span>
-          </Reveal>
-          <div className="skills-grid">
-            {Object.entries(SKILLS).map(([cat, items], ci) => (
-              <Reveal key={cat} delay={ci * 0.1}>
-                <TiltCard className="skill-category-card" max={6}>
-                  <div className="skill-cat-header" style={{ transform: 'translateZ(12px)' }}>
-                    <h4>{cat}</h4>
-                    <span className="skill-count">{items.length}</span>
-                  </div>
-                  <div className="skill-items" style={{ transform: 'translateZ(8px)' }}>
-                    {items.map((s) => (
-                      <div key={s.name} className="skill-tag">
-                        <img
-                          src={s.icon}
-                          alt={s.name}
-                          width={16}
-                          height={16}
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none'
-                          }}
-                        />
-                        {s.name}
-                      </div>
-                    ))}
-                  </div>
-                </TiltCard>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Experience ── */}
-      <section id="experience" className="resume-section">
-        <span className="section-big-num">03</span>
-        <div className="resume-container">
-          <Reveal>
-            <span className="section-label">03 // Experience</span>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <TiltCard className="exp-card" max={5}>
-              <div className="exp-inner" style={{ transform: 'translateZ(10px)' }}>
-                <div className="exp-header">
-                  <h3 className="exp-title">IT / Office Intern</h3>
-                  <span className="exp-meta">2025 — 2026 · 400 Hours</span>
-                </div>
-                <div className="exp-org">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  Municipal Tourism Office of Baao — Baao, Camarines Sur
-                </div>
-                <ul className="exp-details">
-                  <li>Completed 400 hours of on-the-job training in a government office setting</li>
-                  <li>Assisted with data encoding, document preparation, and records management using MS Office and Google Workspace</li>
-                  <li>Gained experience in professional office protocols, interdepartmental coordination, and public-facing service in a local government unit</li>
-                </ul>
-              </div>
-            </TiltCard>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── Projects ── */}
-      <section id="projects" className="resume-section">
-        <span className="section-big-num">04</span>
-        <div className="resume-container">
-          <Reveal>
-            <span className="section-label">04 // Projects</span>
-          </Reveal>
-          <div className="projects-list">
-            {PROJECTS.map((p, i) => (
-              <Reveal key={p.title} delay={i * 0.12}>
-                <TiltCard className="project-card" max={7} scale={1.02}>
-                  <div className="project-inner" style={{ transform: 'translateZ(14px)' }}>
-                    <div className="project-header">
-                      <h3 className="project-title">{p.title}</h3>
-                      <span className="project-year">{p.year}</span>
-                    </div>
-                    <div className="project-org">{p.org}</div>
-                    <p className="project-desc">{p.desc}</p>
-                    <ul className="project-features">
-                      {p.features.map((f) => (
-                        <li key={f}>{f}</li>
-                      ))}
-                    </ul>
-                    <div className="project-footer">
-                      <div className="project-tech">
-                        {p.tech.map((t) => (
-                          <span key={t} className="tech-item">{t}</span>
-                        ))}
-                      </div>
-                      <button
-                        className="project-link"
-                        onClick={() => showToast(`${p.title} — demo available on request`)}
-                      >
-                        View Demo
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                          <circle cx="12" cy="12" r="3" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </TiltCard>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Contact ── */}
-      <section id="contact" className="resume-section">
-        <span className="section-big-num">05</span>
-        <div className="resume-container">
-          <Reveal>
-            <span className="section-label">05 // Contact</span>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="contact-heading">Let's build something together.</h2>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <p className="contact-sub">
-              Open to internships, freelance projects, and full-time roles starting June 2026.
-            </p>
-          </Reveal>
-          <Reveal delay={0.3}>
-            <div className="contact-links">
-              {[
-                {
-                  label: 'Email',
-                  sub: 'rexoltiveros@gmail.com',
-                  icon: '✉',
-                  action: () => {
-                    navigator.clipboard.writeText('rexoltiveros@gmail.com')
-                    showToast('Email copied to clipboard!')
-                  },
-                },
-                {
-                  label: 'GitHub',
-                  sub: 'github.com/rexoltiveros',
-                  icon: '⌥',
-                  action: () => showToast('GitHub — open browser to visit'),
-                },
-                {
-                  label: 'Phone',
-                  sub: '+63 912 345 6789',
-                  icon: '☎',
-                  action: () => {
-                    navigator.clipboard.writeText('+639123456789')
-                    showToast('Phone copied to clipboard!')
-                  },
-                },
-              ].map((c) => (
-                <TiltCard key={c.label} className="contact-card" max={10}>
-                  <button className="contact-link-btn" onClick={c.action} style={{ transform: 'translateZ(16px)' }}>
-                    <span className="contact-icon">{c.icon}</span>
-                    <div>
-                      <div className="contact-label">{c.label}</div>
-                      <div className="contact-val">{c.sub}</div>
-                    </div>
-                  </button>
-                </TiltCard>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── Footer ── */}
-      <footer className="resume-footer">
-        <div className="resume-container footer-inner">
-          <span>© 2026 John Rex Oltiveros</span>
-          <span>Baao, Camarines Sur, Philippines</span>
-          <button className="footer-back" onClick={() => scrollTo('hero')}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" />
-            </svg>
-            Back to top
-          </button>
-        </div>
-      </footer>
-
-      {/* ── Toast ── */}
-      <AnimatePresence>
-        {toast && (
-          <motion.div
-            className="toast-msg"
-            initial={{ opacity: 0, y: 60, x: '-50%' }}
-            animate={{ opacity: 1, y: 0, x: '-50%' }}
-            exit={{ opacity: 0, y: 60, x: '-50%' }}
-            transition={{ duration: 0.45, ease: [0.19, 1, 0.22, 1] }}
-          >
-            {toast}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
+ 
