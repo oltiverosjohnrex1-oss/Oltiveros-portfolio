@@ -393,6 +393,89 @@
   font-size: 12px; font-weight: 500; color: var(--ink);
 }
 
+/* ─── Skill Accordion (ported from HTML portfolio) ───────────── */
+.skill-accordion {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.4s var(--ease-expo),
+              box-shadow 0.4s var(--ease-expo);
+}
+.skill-accordion:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(26,24,20,0.06);
+}
+.skill-accordion-header {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: 'DM Mono', monospace;
+  position: relative;
+  transition: background 0.3s ease;
+  text-align: left;
+}
+.skill-accordion-bar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s var(--ease-expo);
+  border-radius: 0 2px 2px 0;
+}
+.skill-accordion-header:hover .skill-accordion-bar,
+.skill-accordion--active .skill-accordion-bar {
+  transform: scaleY(1);
+}
+.skill-accordion-header:hover {
+  background: rgba(255,255,255,0.5);
+}
+.skill-accordion--active .skill-accordion-header {
+  background: var(--ink);
+}
+.skill-accordion--active .skill-accordion-header h4 {
+  color: #fff;
+}
+.skill-accordion--active .skill-accordion-icon {
+  color: #fff;
+}
+.skill-accordion-header h4 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+.skill-accordion-header:hover h4 {
+  color: var(--ink);
+}
+.skill-accordion-icon {
+  font-size: 1.25rem;
+  color: var(--muted);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.4s var(--ease-expo), color 0.3s ease;
+  flex-shrink: 0;
+}
+.skill-accordion-icon--open {
+  transform: rotate(45deg);
+}
+.skill-accordion-items {
+  padding: 0 1.5rem 1.5rem;
+}
+
 /* ─── Skills ─────────────────────────────────────────────── */
 .skills-grid {
   display: grid;
