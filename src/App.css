@@ -399,12 +399,22 @@
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
-  transition: border-color 0.4s var(--ease-expo),
-              box-shadow 0.4s var(--ease-expo);
+  transition: border-color 0.5s var(--ease-expo),
+              box-shadow 0.5s var(--ease-expo),
+              filter 0.5s ease;
+  /* start grey */
+  filter: grayscale(1) opacity(0.6);
 }
 .skill-accordion:hover {
+  filter: grayscale(0.5) opacity(0.85);
   border-color: var(--accent);
   box-shadow: 0 8px 24px rgba(26,24,20,0.06);
+}
+/* click = full color */
+.skill-accordion--active {
+  filter: grayscale(0) opacity(1);
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(26,24,20,0.1);
 }
 .skill-accordion-header {
   width: 100%;
@@ -514,29 +524,8 @@
   font-size: 11px; padding: 0.3rem 0.65rem;
   border: 1px solid var(--line); border-radius: 6px;
   background: var(--bg);
-  transition: all 0.35s ease;
-  /* start grayscale */
-  filter: grayscale(1) opacity(0.5);
-  color: var(--muted);
+  transition: all 0.25s ease;
 }
-/* when accordion is open — reveal full color */
-.skill-accordion--active .skill-tag {
-  filter: grayscale(0) opacity(1);
-  color: var(--ink);
-  transition: filter 0.5s ease, opacity 0.5s ease, color 0.5s ease,
-              transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-}
-/* stagger each tag coming in */
-.skill-accordion--active .skill-tag:nth-child(1)  { transition-delay: 0.03s; }
-.skill-accordion--active .skill-tag:nth-child(2)  { transition-delay: 0.06s; }
-.skill-accordion--active .skill-tag:nth-child(3)  { transition-delay: 0.09s; }
-.skill-accordion--active .skill-tag:nth-child(4)  { transition-delay: 0.12s; }
-.skill-accordion--active .skill-tag:nth-child(5)  { transition-delay: 0.15s; }
-.skill-accordion--active .skill-tag:nth-child(6)  { transition-delay: 0.18s; }
-.skill-accordion--active .skill-tag:nth-child(7)  { transition-delay: 0.21s; }
-.skill-accordion--active .skill-tag:nth-child(8)  { transition-delay: 0.24s; }
-.skill-accordion--active .skill-tag:nth-child(9)  { transition-delay: 0.27s; }
-.skill-accordion--active .skill-tag:nth-child(10) { transition-delay: 0.30s; }
 .skill-tag:hover {
   border-color: var(--ink);
   transform: translateY(-2px) scale(1.04);
@@ -545,11 +534,6 @@
 .skill-tag img {
   width: 14px; height: 14px;
   object-fit: contain; border-radius: 2px;
-  transition: filter 0.5s ease;
-  filter: grayscale(1);
-}
-.skill-accordion--active .skill-tag img {
-  filter: grayscale(0);
 }
 
 /* ─── Experience ─────────────────────────────────────────── */
