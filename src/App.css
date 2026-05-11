@@ -519,29 +519,20 @@
   font-size: 11px; padding: 0.3rem 0.65rem;
   border: 1px solid var(--line); border-radius: 6px;
   background: var(--bg);
-  transition: filter 0.5s ease, color 0.5s ease,
-              transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
   /* start grey */
   filter: grayscale(1);
   color: var(--muted);
+  transition: filter 0.4s ease, color 0.4s ease,
+              transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
-/* reveal color when accordion is open — staggered */
-.skill-accordion--active .skill-tag {
+/* clicked = full color */
+.skill-tag--colored {
   filter: grayscale(0);
   color: var(--ink);
+  border-color: var(--accent);
 }
-.skill-accordion--active .skill-tag:nth-child(1)  { transition-delay: 0.05s; }
-.skill-accordion--active .skill-tag:nth-child(2)  { transition-delay: 0.10s; }
-.skill-accordion--active .skill-tag:nth-child(3)  { transition-delay: 0.15s; }
-.skill-accordion--active .skill-tag:nth-child(4)  { transition-delay: 0.20s; }
-.skill-accordion--active .skill-tag:nth-child(5)  { transition-delay: 0.25s; }
-.skill-accordion--active .skill-tag:nth-child(6)  { transition-delay: 0.30s; }
-.skill-accordion--active .skill-tag:nth-child(7)  { transition-delay: 0.35s; }
-.skill-accordion--active .skill-tag:nth-child(8)  { transition-delay: 0.40s; }
-.skill-accordion--active .skill-tag:nth-child(9)  { transition-delay: 0.45s; }
-.skill-accordion--active .skill-tag:nth-child(10) { transition-delay: 0.50s; }
 .skill-tag:hover {
-  border-color: var(--ink);
   transform: translateY(-2px) scale(1.04);
   box-shadow: 0 6px 20px rgba(26,24,20,0.1);
 }
@@ -549,9 +540,9 @@
   width: 14px; height: 14px;
   object-fit: contain; border-radius: 2px;
   filter: grayscale(1);
-  transition: filter 0.5s ease;
+  transition: filter 0.4s ease;
 }
-.skill-accordion--active .skill-tag img {
+.skill-tag--colored img {
   filter: grayscale(0);
 }
 
