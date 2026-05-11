@@ -515,35 +515,27 @@
   display: flex; flex-wrap: wrap; gap: 0.5rem;
 }
 .skill-tag {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  font-size: 11px; padding: 0.3rem 0.65rem;
-  border: 1px solid var(--line); border-radius: 6px;
-  background: var(--bg);
-  cursor: pointer;
-  /* start grey */
-  filter: grayscale(1);
-  color: var(--muted);
-  transition: filter 0.4s ease, color 0.4s ease,
-              transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-/* clicked = full color */
-.skill-tag--colored {
-  filter: grayscale(0);
-  color: var(--ink);
-  border-color: var(--accent);
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; padding: 8px 14px;
+  border-radius: 6px; font-size: 10px;
+  text-transform: uppercase; border: 1px solid var(--line);
+  letter-spacing: 0.06em;
+  cursor: default;
+  transition: all 0.3s var(--ease-quart);
 }
 .skill-tag:hover {
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 6px 20px rgba(26,24,20,0.1);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26,24,20,0.06);
 }
 .skill-tag img {
-  width: 14px; height: 14px;
+  width: 16px; height: 16px;
   object-fit: contain; border-radius: 2px;
-  filter: grayscale(1);
-  transition: filter 0.4s ease;
+  filter: grayscale(1) opacity(0.6);
+  transition: all 0.3s ease;
 }
-.skill-tag--colored img {
-  filter: grayscale(0);
+.skill-tag:hover img {
+  filter: grayscale(0) opacity(1);
 }
 
 /* ─── Experience ─────────────────────────────────────────── */
