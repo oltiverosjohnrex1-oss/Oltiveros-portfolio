@@ -141,18 +141,33 @@ function Reveal({ children, delay = 0, className = '' }: { children: React.React
 /* ─── Skill Accordion ───────────────────────────────────────── */
 function SkillAccordion({ cat, items, delay }: { cat: string; items: { name: string; icon: string }[]; delay: number }) {
   const [open, setOpen] = useState(false)
+  const [colored, setColored] = useState<Set<string>>(new Set())
+
+  const handleToggle = () => {
+    setOpen((v) => {
+      if (v) setColored(new Set())
+      return !v
+    })
+  }
+
+  const toggleColor = (name: string) => {
+    setColored((prev) => {
+      const next = new Set(prev)
+      if (next.has(name)) next.delete(name)
+      else next.add(name)
+      return next
+    })
+  }
 
   return (
     <Reveal delay={delay}>
       <div className={`skill-accordion ${open ? 'skill-accordion--active' : ''}`}>
-        {/* Header */}
-        <button className="skill-accordion-header" onClick={() => setOpen((v) => !v)}>
+        <button className="skill-accordion-header" onClick={handleToggle}>
           <div className="skill-accordion-bar" />
           <h4>{cat}</h4>
           <span className={`skill-accordion-icon ${open ? 'skill-accordion-icon--open' : ''}`}>+</span>
         </button>
 
-        {/* Body */}
         <AnimatePresence initial={false}>
           {open && (
             <motion.div
@@ -165,7 +180,11 @@ function SkillAccordion({ cat, items, delay }: { cat: string; items: { name: str
             >
               <div className="skill-items skill-accordion-items">
                 {items.map((s) => (
-                  <div key={s.name} className="skill-tag">
+                  <div
+                    key={s.name}
+                    className={`skill-tag ${colored.has(s.name) ? 'skill-tag--colored' : ''}`}
+                    onClick={() => toggleColor(s.name)}
+                  >
                     <img
                       src={s.icon}
                       alt={s.name}
